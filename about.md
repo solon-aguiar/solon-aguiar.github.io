@@ -4,15 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+I am a software engineer from Brazil going around the world and aspiring to be the best I can be. This is the place I use for sharing thoughts, learnings and giving back to the internet community the most I can from the little I know.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+In my day job I write software for Amazon.com. I help transform the business needs and ideas into reliable, resilient and well-tested clean software.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+I am currently in Seattle, Washigton, USA and always looking for a new place to explore.
 
-
-[jekyll-organization]: https://github.com/jekyll
+![About me](../assets/images/aboutMe.gif)

@@ -251,4 +251,8 @@
       @include relative-font-size(1.125);
     }
   }
+
+  p {
+    text-align: justify
+  }
 }
