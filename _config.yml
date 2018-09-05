@@ -15,10 +15,9 @@
 # in the templates via {{ site.myvariable }}.
 title: Solon Aguiar
 email: solon[dot]liam[dot]aguiar[at]gmail[dot]com
-description: Solon's personal website. His ramblings and thoughts about software, travelling, life & beyond. A way to share and learn.
+description: This is Solon's personal website. His ramblings and thoughts about software, travelling, life, philosophy, psychology & beyond. A way to share and learn.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://solon-aguiar.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
 github_username: solon-aguiar
 
 # Build settings
@@ -26,6 +25,15 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+
+pagination:
+  enabled: true
+  per_page: 4
+  trail:
+    before: 2
+    after: 2
+
+google_analytics: UA-106212647-1
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
