@@ -10,4 +10,6 @@ In my current day job I write software for Spotify. I help both shape the direct
 
 I am currently in New York City, New York, USA and always looking for a new place to explore.
 
-![About me](../assets/images/aboutMe.gif)
+Everything shared here are my personal views and don't represet opinions of anyone else but me.
+
+![About me](/assets/images/aboutMe.gif)
