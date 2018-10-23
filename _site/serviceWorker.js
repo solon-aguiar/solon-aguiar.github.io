@@ -1,7 +1,7 @@
 var CACHE_NAME = 'v1';
 var URLS_TO_CACHE = [
   '/',
-  '/about',
+  '/about/',
   '/assets/main.css',
   '/assets/images/aboutMe.gif'
 ];
