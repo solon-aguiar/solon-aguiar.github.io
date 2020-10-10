@@ -8,7 +8,7 @@ I am a software engineer from Brazil going around the world and aspiring to be t
 
 In my current day job I write software for [Segment](http://segment.com/). I help both shape the direction and transform the business' needs into reliable, resilient and well-tested clean software.
 
-I currently live in Seeattle, Washington, USA and always looking for a new place to explore.
+I currently live in Seattle, Washington, USA and always looking for a new place to explore.
 
 I also love camper vans. My wife and I have a 1989 Vanagon Westfalia called Spock. We use it to go around camping.
 
