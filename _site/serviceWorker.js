@@ -1,4 +1,4 @@
-var CACHE_NAME = 'v1';
+var CACHE_NAME = 'v3';
 var URLS_TO_CACHE = [
   '/',
   '/about/',
