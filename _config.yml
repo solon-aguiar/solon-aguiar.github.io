@@ -27,6 +27,7 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-analytics
 
 pagination:
   enabled: true
@@ -35,7 +36,10 @@ pagination:
     before: 2
     after: 2
 
-google_analytics: UA-106212647-1
+jekyll_analytics:
+  GoogleAnalytics:          
+    id: G-SL2SY0BHE7         
+    anonymizeIp: false
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

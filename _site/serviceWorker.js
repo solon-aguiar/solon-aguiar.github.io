@@ -1,6 +1,5 @@
-var CACHE_NAME = 'v4';
+var CACHE_NAME = 'v6';
 var URLS_TO_CACHE = [
-  '/',
   '/about/',
   '/assets/main.css',
   '/assets/images/aboutMe.gif'
