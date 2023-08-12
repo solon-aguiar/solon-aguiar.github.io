@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
+  <link rel="stylesheet" href="/assets/css/custom.css">
+  <script src="/assets/js/index.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106212647-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-106212647-1');
+  </script>
+
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Circuit Breaker for higher availability and reliability | Solon Aguiar</title>
+<meta name="generator" content="Jekyll v3.8.4" />
+<meta property="og:title" content="Circuit Breaker for higher availability and reliability" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Circuit Breaker pattern is a very useful pattern to improve reliability and availability of a back-end service or micro-service." />
+<meta property="og:description" content="The Circuit Breaker pattern is a very useful pattern to improve reliability and availability of a back-end service or micro-service." />
+<link rel="canonical" href="https://solon-aguiar.github.io/design-pattern/backend/2018/09/06/circuit-breaker-pattern.html" />
+<meta property="og:url" content="https://solon-aguiar.github.io/design-pattern/backend/2018/09/06/circuit-breaker-pattern.html" />
+<meta property="og:site_name" content="Solon Aguiar" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-09-06T14:36:00-07:00" />
+<script type="application/ld+json">
+{"description":"The Circuit Breaker pattern is a very useful pattern to improve reliability and availability of a back-end service or micro-service.","@type":"BlogPosting","url":"https://solon-aguiar.github.io/design-pattern/backend/2018/09/06/circuit-breaker-pattern.html","headline":"Circuit Breaker for higher availability and reliability","dateModified":"2018-09-06T14:36:00-07:00","datePublished":"2018-09-06T14:36:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://solon-aguiar.github.io/design-pattern/backend/2018/09/06/circuit-breaker-pattern.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://solon-aguiar.github.io/feed.xml" title="Solon Aguiar" /></head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Solon Aguiar</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+       <a class="page-link" href="/about/">About</a>
+      </nav></div>
+</header>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Circuit Breaker for higher availability and reliability</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-09-06T14:36:00-07:00" itemprop="datePublished">Sep 6, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>The <em>Circuit Breaker</em> pattern is a very useful pattern to improve reliability and availability of a back-end service or micro-service. The idea behind it is actually quite simple: if a system depends on another system (be this latter one a database, remote or distributed file system, back-end etc - any type of remote system that requires a connection), it can keep track of the state of that connection and take immediate action when that dependency is down or not functioning properly in order to alleviate resources.</p>
+
+<p>An example will make it more clear. Let’s say that the <strong>AccountSystem</strong> makes requests to the <strong>UserAccountsDB</strong> in order to read all user data and respond with the user’s subscriptions. Clearly, the database is a requirement for the account system to work properly. If this database is not accessible then there’s not much the <strong>AccountSystem</strong> can do with every request. Therefore, it is a good design pattern for the <strong>AccountSystem</strong> to keep track of the state of that connection and make sure it only tries to fetch user data when it knows it can get the valuable information. In cases when it knows that the connection is not working, it can just reply an error to the caller. See the diagrams below:</p>
+
+<p><img src="/assets/images/cb_connection_ok.png" alt="Connection Ok" />
+<img src="/assets/images/cb_connection_not_ok.png" alt="Connection Not Ok" /></p>
+
+<p>This short circuited response allows the system as a whole to free up resources. If the <strong>AccountSystem</strong> still tried to fetch the user’s data, it would use more of its own and the caller’s CPU time as well as network bandwidth. By not making the call it knows that can’t be fulfilled, it saves cpu clocks, bandwidth and time. A client of this service can quickly act on that error response however it deem necessary.</p>
+
+<p>Another benefit of this approach is that whenever the database system does become available, then it won’t likely be overflowed with outstanding requests from the <strong>AccountSystem</strong>, thus reducing the availability risk.</p>
+
+<p>While the idea behind the <em>Circuit Breaker</em> pattern is simple, it’s implementation can be a bit tricky (even though you can find some code on Wikipedia etc.). The thing is that maintaining the state of this connection (or many others in case your system depends on more than 1 remote system) is not trivial. You have to be careful with the transitions between those states. A few interesting questions to ask yourself:
+When do you mark a connection as down? It is not a really good idea to do at every error as those can happen due to network and software glitches etc.
+What is the time period to consider a connection down? X errors in Y seconds is enough? What are acceptable values of X and Y that will give the benefit of the short circuit and not cause too many false positives?
+Once a connection is marked as down, how often do you check for its availability again, so that you can re-open the circuit? This is critical to be able to fully respond to requests again. When thinking about this one, it is specifically important to think how you keep retrying. A good alternative is using exponential backoffs, which will be the topic of my next post.</p>
+
+<p>The <em>Circuit Breaker</em> pattern is very useful in the case of hard dependencies on other systems, but not the only case where it can be used. It can also be successfully applied in cases when the dependent system is not critical (such as a system that gives you updated weather forecasts in your exercise app). While up-to-date data is desired in all scenarios, some systems can tolerate stale data (even with a warning to the user) and continue to function properly. The <em>Circuit Breaker</em>, in this case, will help free up resources, as said before, and reduce request time.</p>
+
+<p>Note that using the pattern will incur more complexity and possibly add some overhead to each (or some - depending on how often you check it) operations. It can also cause the whole system to take longer to “realize” the dependency is back (depending on how you check for the connection again).</p>
+
+<p>As I said, using the <em>Circuit Breaker</em> improves reliability and availability. It does so because it makes your system more resilient to errors. In most cases the benefits outweigh the drawbacks and make it a good idea to use it.</p>
+
+<p>While using a <em>Circuit Breaker</em>, it is generally a good idea to use an <em>Exponential Backoff</em> for testing the health of the dependent connections. Exponential Backoffs will be the topic of my next blog post.</p>
+
+<p>Stay tuned!</p>
+
+  </div><a class="u-url" href="/design-pattern/backend/2018/09/06/circuit-breaker-pattern.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Solon Aguiar</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Solon Aguiar</li><li><a class="u-email" href="mailto:solon[dot]liam[dot]aguiar[at]gmail[dot]com">solon[dot]liam[dot]aguiar[at]gmail[dot]com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/solon-aguiar"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">solon-aguiar</span></a></li><li><a href="https://www.linkedin.com/in/solonaguiar"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">solonaguiar</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>This is Solon&#39;s personal website. His personal ramblings and thoughts about software, travelling, life, philosophy, psychology &amp; beyond. A way to share and learn. Opinions are personal.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
