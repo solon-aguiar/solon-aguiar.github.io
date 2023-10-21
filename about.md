@@ -10,6 +10,6 @@ In my current day job I write software for [Checkr](https://checkr.com/). I help
 
 I currently live in Seattle, Washington, USA and always looking for a new place to explore.
 
-Everything shared here are my personal views and don't represet opinions of anyone else but me.
+Everything shared here are my personal views and don't represet opinions of anyone else but me. For the list and links of my public talks, head to [Talks](/talks/).
 
 ![About me](/assets/images/aboutMe.gif)
